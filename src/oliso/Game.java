@@ -66,11 +66,13 @@ public class Game {
   }
 
   /**
-   **
-   **
-   **
-   ** @return the succsess of the operation
-   **/
+   *
+   * @param player
+   * @param size
+   * @param x
+   * @param y
+   * @return
+   */
   public boolean addPiece(int player, int size, int x, int y) {
     // When the board hasn't has numbers
     if (board[x][y] == 0) {
@@ -114,9 +116,11 @@ public class Game {
   }
 
   /**
-   **
-   ** @return a numer 030, 300, 333
-   **/
+   *
+   * @param size [0, 2]
+   * @param player 2, 3, 5, 7
+   * @return a number 030, 300, 333
+   */
   private int transforSizeToInt3(int size, int player) {
     if (size == 0) {
       return player;
