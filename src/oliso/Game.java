@@ -18,7 +18,7 @@ public class Game {
     this.players[0] = new Player();
     this.players[1] = new Player();
     this.players[2] = new Player();
-    this.players[0] = new Player();
+    this.players[3] = new Player();
     this.playersNumbers = new int[4];
     this.playersNumbers[0] = 2;
     this.playersNumbers[1] = 3;
@@ -76,7 +76,6 @@ public class Game {
   }
 
   /**
-   *
    * @param player
    * @param size
    * @param x
@@ -126,8 +125,7 @@ public class Game {
   }
 
   /**
-   *
-   * @param size [0, 2]
+   * @param size   [0, 2]
    * @param player 2, 3, 5, 7
    * @return a number 030, 300, 333
    */
