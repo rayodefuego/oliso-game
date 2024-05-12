@@ -13,7 +13,7 @@ public class Game {
   public Game(int players) {
     this.board = new int[3][3];
     this.turn = 0;
-    this.playerTurn = 1;
+    this.playerTurn = 2;
     this.players = new Player[4];
     this.players[0] = new Player();
     this.players[1] = new Player();
