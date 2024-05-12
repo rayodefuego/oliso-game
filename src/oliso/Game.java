@@ -33,7 +33,7 @@ public class Game {
   public void nextTurn() {
     turn = (turn +1) % playerCount;
     playerTurn = playersNumbers[turn];
-}
+  }
 
   public int[][] getBoard() {
     return board;
@@ -83,10 +83,10 @@ public class Game {
    * @param y
    * @return
    */
-  public boolean addPiece(int player, int size, int x, int y) {
+  public boolean addPiece(int size, int x, int y) {
     // When the board hasn't has numbers
     if (board[x][y] == 0) {
-      board[x][y] += transforSizeToInt3(size, player);
+      board[x][y] += transforSizeToInt3(size, playerTurn);
       return true;
     }
     // When the board has only one number like 002
@@ -95,17 +95,17 @@ public class Game {
       if (size == 1) {
         return false;
       } else {
-        board[x][y] += transforSizeToInt3(size, player);
+        board[x][y] += transforSizeToInt3(size, playerTurn);
         return true;
       }
     }
     // When the board has two numbers like 020 or 025
     else if (board[x][y] < 100) {
       if (size == 1 && board[x][y] % 10 == 0) {
-        board[x][y] += transforSizeToInt3(size, player);
+        board[x][y] += transforSizeToInt3(size, playerTurn);
         return true;
       } else if (size == 3) {
-        board[x][y] += transforSizeToInt3(size, player);
+        board[x][y] += transforSizeToInt3(size, playerTurn);
         return true;
       } else {
         return false;
@@ -114,10 +114,10 @@ public class Game {
     // When the board has three numbers like 300, 320 or 325
     else {
       if (size == 1 && board[x][y] % 10 == 0) {
-        board[x][y] += transforSizeToInt3(size, player);
+        board[x][y] += transforSizeToInt3(size, playerTurn);
         return true;
       } else if (size == 2 && (board[x][y] % 100 - board[x][y] % 10) == 0) {
-        board[x][y] += transforSizeToInt3(size, player);
+        board[x][y] += transforSizeToInt3(size, playerTurn);
         return true;
       } else {
         return false;
