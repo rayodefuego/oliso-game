@@ -1,4 +1,6 @@
 package oliso;
+import java.util.*;
+import java.util.ArrayList;
 
 public class Game {
   private int[][] board;
@@ -24,6 +26,14 @@ public class Game {
     this.playersNumbers[3] = 7;
     this.playerCount = players;
   }
+
+  /**
+   * Cicle for advance 1 position in function of the players
+   */
+  public void nextTurn() {
+    turn = (turn +1) % playerCount;
+    playerTurn = playersNumbers[turn];
+}
 
   public int[][] getBoard() {
     return board;

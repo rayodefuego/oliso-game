@@ -1,9 +1,13 @@
 package oliso;
+
+import javax.lang.model.element.Name;
+
 public class Player{
   private int winsCount;
   private int smallPiece;
   private int mediumPiece;
   private int bigPiece;
+  private String name;
 
   public Player(){
     this.winsCount = 0;
@@ -42,4 +46,5 @@ public class Player{
   public void setBigPiece(int bigPiece) {
     this.bigPiece = bigPiece;
   }
+
 }
