@@ -16,7 +16,7 @@ public class ConsoleUI {
     do{
       printBoard(game.getBoard());
       askForMove(scanner, game);
-      game.nextTurn();
+      //game.nextTurn();
       System.out.println("Test");
       System.out.println(BoardChecker.checkForWin(game.getBoard()));
     }while (BoardChecker.checkForWin(game.getBoard()));
@@ -54,10 +54,10 @@ public class ConsoleUI {
    * @param game Game used in main
    */
   private static void askForMove(Scanner scanner, Game game){
-    System.out.println(game.getCurrentPlayer().getName()+ "turn");
+    System.out.println(game.getCurrentPlayer().getName()+ " turn");
     int xPos = askForXPosition(scanner);
     int yPos = askForYPosition(scanner);
-    int size = askForPieceSize(scanner);
+    int size = askForPieceSize(scanner, game);
     if (!game.addPiece(size, xPos, yPos)){
       System.out.println("The Move is not empty, please try again");
       askForMove(scanner, game);
@@ -113,23 +113,44 @@ public class ConsoleUI {
    * @param scanner Scanner used in main
    * @return the size that is between 0 and 2 [0 small, 1 medium, 2 big]
    */
-  private  static int askForPieceSize(Scanner scanner){
+  private  static int askForPieceSize(Scanner scanner, Game game){
     System.out.println("s{Small}, m{Medium}, b{Big}");
     System.out.println("Please enter the size of the piece");
+
+    printPieceAmount(game);
 
     String size = scanner.nextLine();
 
     switch (size){
       case "s", "S", "small", "Small":
+        if(game.getCurrentPlayer().getSmallPiece() == 0) {
+          System.out.println("You don't have enough pieces of that type, please try again");
+          return askForPieceSize(scanner, game);
+        }
         return 0;
       case "m", "M", "medium", "Medium":
+        if(game.getCurrentPlayer().getMediumPiece() == 0) {
+          System.out.println("You don't have enough pieces of that type, please try again");
+          return askForPieceSize(scanner, game);
+        }
         return 1;
       case "b", "B", "big", "Big":
+        if(game.getCurrentPlayer().getBigPiece() == 0) {
+          System.out.println("You don't have enough pieces of that type, please try again");
+          return askForPieceSize(scanner, game);
+        }
         return 2;
       default:
-        System.out.println(size + "is not a valid input, please try again");
-        return askForPieceSize(scanner);
+        System.out.println(size + " is not a valid input, please try again");
+        return askForPieceSize(scanner, game);
     }
+  }
+
+  private static void printPieceAmount(Game game){
+    System.out.println("You have: ");
+    System.out.println(game.getCurrentPlayer().getSmallPiece() + " small");
+    System.out.println(game.getCurrentPlayer().getMediumPiece() + " medium");
+    System.out.println(game.getCurrentPlayer().getBigPiece() + " big");
   }
 
   private static void wonGameOver(Game game){

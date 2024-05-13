@@ -91,9 +91,10 @@ public class Game {
    * @return
    */
   public boolean addPiece(int size, int x, int y) {
-    // When the board hasn't has numbers
+    // When the board hasn't numbers
     if (board[x][y] == 0) {
       board[x][y] += transforSizeToInt3(size, playerTurn);
+      removePieceToPlayer(size);
       return true;
     }
     // When the board has only one number like 002
@@ -103,6 +104,7 @@ public class Game {
         return false;
       } else {
         board[x][y] += transforSizeToInt3(size, playerTurn);
+        removePieceToPlayer(size);
         return true;
       }
     }
@@ -110,9 +112,11 @@ public class Game {
     else if (board[x][y] < 100) {
       if (size == 0 && board[x][y] % 10 == 0) {
         board[x][y] += transforSizeToInt3(size, playerTurn);
+        removePieceToPlayer(size);
         return true;
       } else if (size == 2) {
         board[x][y] += transforSizeToInt3(size, playerTurn);
+        removePieceToPlayer(size);
         return true;
       } else {
         return false;
@@ -122,9 +126,11 @@ public class Game {
     else {
       if (size == 0 && board[x][y] % 10 == 0) {
         board[x][y] += transforSizeToInt3(size, playerTurn);
+        removePieceToPlayer(size);
         return true;
       } else if (size == 1 && (board[x][y] % 100 - board[x][y] % 10) == 0) {
         board[x][y] += transforSizeToInt3(size, playerTurn);
+        removePieceToPlayer(size);
         return true;
       } else {
         return false;
@@ -132,6 +138,17 @@ public class Game {
     }
   }
 
+  private void removePieceToPlayer(int size){
+    if(size == 0){
+      currentPlayer.removeSmallPiece();
+    }
+    if(size == 1){
+      currentPlayer.removeMediumPiece();
+    }
+    if(size == 2){
+      currentPlayer.removeBigPiece();
+    }
+  }
   /**
    * @param size   [0, 2]
    * @param player 2, 3, 5, 7

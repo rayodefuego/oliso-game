@@ -57,4 +57,14 @@ public class Player{
   public void setName(String name) {
     this.name = name;
   }
+
+  public void removeSmallPiece(){
+    smallPiece -= 1;
+  }
+  public void removeMediumPiece(){
+    mediumPiece -= 1;
+  }
+  public void removeBigPiece(){
+    bigPiece -= 1;
+  }
 }
