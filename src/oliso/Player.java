@@ -3,18 +3,20 @@ package oliso;
 import javax.lang.model.element.Name;
 
 public class Player{
-  private int winsCount;
-  private int smallPiece;
-  private int mediumPiece;
-  private int bigPiece;
+  private int winsCount;    //Declare total wins variable winsCount as integer
+  private int smallPiece;   //Declare the number of smallPieces as integer
+  private int mediumPiece;  //Declare the number of mediumPiece as integer
+  private int bigPiece;     //Declare the number of bigPieces as integer
   private String name;
 
   public Player(){
-    this.winsCount = 0;
-    this.smallPiece = 4;
-    this.mediumPiece = 4;
-    this.bigPiece = 4;
+    this.winsCount = 0;   //Initialize winsCount as 0
+    this.smallPiece = 4;  //Maximum number of smallPieces is 4
+    this.mediumPiece = 4; //Maximum number of mediumPieces is 4
+    this.bigPiece = 4;    //Maximum number of bigPieces is 4
   }
+
+  //Getters and setters for wins count,small big and medium pieces
   public int getWinsCount() {
     return winsCount;
   }
