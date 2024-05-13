@@ -15,10 +15,10 @@ public class Game {
     this.turn = 0;
     this.playerTurn = 2;
     this.players = new Player[4];
-    this.players[0] = new Player();
-    this.players[1] = new Player();
-    this.players[2] = new Player();
-    this.players[3] = new Player();
+    this.players[0] = new Player("Player 1");
+    this.players[1] = new Player("Player 2");
+    this.players[2] = new Player("Player 3");
+    this.players[3] = new Player("Player 4");
     this.playersNumbers = new int[4];
     this.playersNumbers[0] = 2;
     this.playersNumbers[1] = 3;

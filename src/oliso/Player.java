@@ -9,11 +9,12 @@ public class Player{
   private int bigPiece;     //Declare the number of bigPieces as integer
   private String name;
 
-  public Player(){
+  public Player(String name){
+    this.name = name;
     this.winsCount = 0;   //Initialize winsCount as 0
-    this.smallPiece = 4;  //Maximum number of smallPieces is 4
-    this.mediumPiece = 4; //Maximum number of mediumPieces is 4
-    this.bigPiece = 4;    //Maximum number of bigPieces is 4
+    this.smallPiece = 3;  //Maximum number of smallPieces is 4
+    this.mediumPiece = 3; //Maximum number of mediumPieces is 4
+    this.bigPiece = 3;    //Maximum number of bigPieces is 4
   }
 
   //Getters and setters for wins count,small big and medium pieces
