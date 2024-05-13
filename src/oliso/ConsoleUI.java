@@ -54,7 +54,7 @@ public class ConsoleUI {
    * @param game Game used in main
    */
   private static void askForMove(Scanner scanner, Game game){
-    System.out.println("player turn");
+    System.out.println(game.getCurrentPlayer().getName()+ "turn");
     int xPos = askForXPosition(scanner);
     int yPos = askForYPosition(scanner);
     int size = askForPieceSize(scanner);
@@ -130,5 +130,13 @@ public class ConsoleUI {
         System.out.println(size + "is not a valid input, please try again");
         return askForPieceSize(scanner);
     }
+  }
+
+  private static void wonGameOver(Game game){
+    System.out.println(game.getCurrentPlayer().getName() + " Won");
+  }
+
+  private static void tieGameOver(){
+    System.out.println("Is a tie, no one won");
   }
 }
