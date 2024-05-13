@@ -16,10 +16,14 @@ public class ConsoleUI {
     do{
       printBoard(game.getBoard());
       askForMove(scanner, game);
-      //game.nextTurn();
+      if(BoardChecker.checkForWin(game.getBoard()) == true){
+        wonGameOver(game);
+        break;
+      }
+      game.nextTurn();
       System.out.println("Test");
       System.out.println(BoardChecker.checkForWin(game.getBoard()));
-    }while (BoardChecker.checkForWin(game.getBoard()));
+    }while (true);
 
 
   }
