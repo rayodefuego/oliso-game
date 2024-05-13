@@ -150,6 +150,10 @@ public class ConsoleUI {
     }
   }
 
+  /**
+   * print the amount of pieces of each type
+   * @param game the game of main
+   */
   private static void printPieceAmount(Game game){
     System.out.println("You have: ");
     System.out.println(game.getCurrentPlayer().getSmallPiece() + " small");
@@ -157,10 +161,17 @@ public class ConsoleUI {
     System.out.println(game.getCurrentPlayer().getBigPiece() + " big");
   }
 
+  /**
+   * print the win game over final
+   * @param game the game of main
+   */
   private static void wonGameOver(Game game){
     System.out.println(game.getCurrentPlayer().getName() + " Won");
   }
 
+  /**
+   * print the tie game over final
+   */
   private static void tieGameOver(){
     System.out.println("Is a tie, no one won");
   }

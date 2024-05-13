@@ -58,12 +58,23 @@ public class Player{
     this.name = name;
   }
 
+  /**
+   * remove a small piece from player
+   */
   public void removeSmallPiece(){
     smallPiece -= 1;
   }
+
+  /**
+   * remove a medium piece from player
+   */
   public void removeMediumPiece(){
     mediumPiece -= 1;
   }
+
+  /**
+   * remove a big piece from player
+   */
   public void removeBigPiece(){
     bigPiece -= 1;
   }
