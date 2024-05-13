@@ -2,6 +2,7 @@ package oliso;
 
 public class BoardChecker {
   public static boolean checkForWin(int[][] board) {
+    if(check3in1(board)) return true;
     if(checkForSmall(board)) return true;
     if(checkForMedium(board)) return true;
     if(checkForBig(board)) return true;
@@ -41,68 +42,120 @@ public class BoardChecker {
   private static boolean checkForSmall (int [][] board) {
     for (int i = 0; i < board.length; i++) {
       if ((getSmall(board[i][0]) == getSmall(board[i][1])) && (getSmall(board[i][0]) == getSmall(board[i][2]))){
+        if((getSmall(board[i][0]) == 0||getSmall(board[i][1]) == 0||getSmall(board[i][2])== 0)){
+          continue;
+        }
+        System.out.println("ERROR 1");
         return true;
       }
       if ((getSmall(board[0][i]) == getSmall(board[1][i])) && (getSmall(board[0][i]) == getSmall(board[2][i]))){
+        if((getSmall(board[0][i]) == 0||getSmall(board[1][i]) == 0||getSmall(board[2][i])== 0)){
+          continue;
+        }
+        System.out.println("ERROR 2");
         return true;
       }
     }
     if ((getSmall(board[0][0]) == getSmall(board[1][1])) && (getSmall(board[0][0]) == getSmall(board[2][2]))){
-      return true;
+      if((getSmall(board[0][0]) != 0||getSmall(board[1][1]) != 0||getSmall(board[2][2]) != 0)){
+        System.out.println("ERROR 3");
+        return true;
+      }
     }
     if ((getSmall(board[0][2]) == getSmall(board[1][1])) && (getSmall(board[0][2]) == getSmall(board[2][0]))){
-      return true;
+      if((getSmall(board[0][2]) != 0||getSmall(board[1][1]) != 0||getSmall(board[2][0]) != 0)){
+        System.out.println("ERROR 4");
+        return true;
+      }
     }
     return false;
   }
   private static boolean checkForMedium (int [][] board) {
     for (int i = 0; i < board.length; i++) {
       if ((getMedium(board[i][0]) == getMedium(board[i][1])) && (getMedium(board[i][0]) == getMedium(board[i][2]))){
+        if((getMedium(board[i][0]) == 0||getMedium(board[i][1]) == 0||getMedium(board[i][2])== 0)){
+          continue;
+        }
+        System.out.println("ERROR 5");
         return true;
       }
       if ((getMedium(board[0][i]) == getMedium(board[1][i])) && (getMedium(board[0][i]) == getMedium(board[2][i]))){
+        if((getMedium(board[0][i]) == 0||getMedium(board[1][i]) == 0||getMedium(board[2][i])== 0)){
+          continue;
+        }
+        System.out.println("ERROR 6");
         return true;
       }
     }
     if ((getMedium(board[0][0]) == getMedium(board[1][1])) && (getMedium(board[0][0]) == getMedium(board[2][2]))){
-      return true;
+      if((getMedium(board[0][0]) != 0||getMedium(board[1][1]) != 0||getMedium(board[2][2]) != 0)){
+        System.out.println("ERROR 7");
+        return true;
+      }
     }
     if ((getMedium(board[0][2]) == getMedium(board[1][1])) && (getMedium(board[0][2]) == getMedium(board[2][0]))){
-      return true;
+      if((getMedium(board[0][2]) != 0||getMedium(board[1][1]) != 0||getMedium(board[2][0]) != 0)){
+        System.out.println("ERROR 8");
+        return true;
+      }
     }
     return false;
   }
   private static boolean checkForBig (int [][] board) {
     for (int i = 0; i < board.length; i++) {
       if ((getBig(board[i][0]) == getBig(board[i][1])) && (getBig(board[i][0]) == getBig(board[i][2]))){
+        if((getBig(board[i][0]) == 0||getBig(board[i][1]) == 0||getBig(board[i][2])== 0)){
+          continue;
+        }
+        System.out.println("ERROR 9");
         return true;
       }
       if ((getBig(board[0][i]) == getBig(board[1][i])) && (getBig(board[0][i]) == getBig(board[2][i]))){
+        if((getBig(board[0][i]) == 0||getBig(board[1][i]) == 0||getBig(board[2][i])== 0)){
+          continue;
+        }
+        System.out.println("ERROR 10");
         return true;
       }
     }
     if ((getBig(board[0][0]) == getBig(board[1][1])) && (getBig(board[0][0]) == getBig(board[2][2]))){
-      return true;
+      if((getBig(board[0][0]) != 0||getBig(board[1][1]) != 0||getBig(board[2][2]) != 0)){
+        System.out.println("ERROR 11");
+        return true;
+      }
     }
     if ((getBig(board[0][2]) == getBig(board[1][1])) && (getBig(board[0][2]) == getBig(board[2][0]))){
-      return true;
+      if((getBig(board[0][2]) != 0||getBig(board[1][1]) != 0||getBig(board[2][0]) != 0)){
+        System.out.println("ERROR 12");
+        return true;
+      }
     }
     return false;
   }
   private static boolean checkForBigToSmall(int[][]board) {
     for (int i = 0; i < board.length; i++) {
       if ((getBig(board[i][0]) == getMedium(board[i][1])) && (getBig(board[i][0]) == getSmall(board[i][2]))){
+        if((getBig(board[i][0]) == 0)){
+          continue;
+        }
         return true;
       }
       if ((getBig(board[0][i]) == getMedium(board[1][i])) && (getBig(board[0][i]) == getSmall(board[2][i]))){
+        if((getBig(board[0][i]) == 0)){
+          continue;
+        }
         return true;
       }
     }
     if ((getBig(board[0][0]) == getMedium(board[1][1])) && (getBig(board[0][0]) == getSmall(board[2][2]))){
-      return true;
+      if((getBig(board[0][0]) != 0)){
+        return true;
+      }
     }
     if ((getBig(board[0][2]) == getMedium(board[1][1])) && (getBig(board[0][2]) == getSmall(board[2][0]))){
-      return true;
+      if((getBig(board[0][2]) != 0)){
+        return true;
+      }
     }
     return false;
 
@@ -110,17 +163,28 @@ public class BoardChecker {
   private static boolean checkForSmallToBig(int[][]board) {
     for (int i = 0; i < board.length; i++) {
       if ((getSmall(board[i][0]) == getMedium(board[i][1])) && (getSmall(board[i][0]) == getBig(board[i][2]))){
+        if(getSmall(board[i][0]) == 0){
+          continue;
+        }
         return true;
       }
       if ((getSmall(board[0][i]) == getMedium(board[1][i])) && (getSmall(board[0][i]) == getBig(board[2][i]))){
+        if(getSmall(board[0][i]) == 0){
+          continue;
+        }
         return true;
       }
     }
     if ((getSmall(board[0][0]) == getMedium(board[1][1])) && (getSmall(board[0][0]) == getBig(board[2][2]))){
-      return true;
+      if(getSmall(board[0][0]) != 0){
+        return true;
+      }
+
     }
     if ((getSmall(board[0][2]) == getMedium(board[1][1])) && (getSmall(board[0][2]) == getBig(board[2][0]))){
-      return true;
+      if(getSmall(board[0][2]) != 0){
+        return true;
+      }
     }
     return false;
 
