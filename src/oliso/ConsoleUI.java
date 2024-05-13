@@ -12,8 +12,16 @@ public class ConsoleUI {
   public static void main(String[] args) {
     Game game = new Game(4);
     Scanner scanner = new Scanner(System.in);
-    printBoard(game.getBoard());
-    askForMove(scanner);
+
+    do{
+      printBoard(game.getBoard());
+      askForMove(scanner, game);
+      game.nextTurn();
+      System.out.println("Test");
+      System.out.println(BoardChecker.checkForWin(game.getBoard()));
+    }while (BoardChecker.checkForWin(game.getBoard()));
+
+
   }
 
   private static void printBoard(int[][] board) {
@@ -36,12 +44,15 @@ public class ConsoleUI {
     }
   }
 
-  private static void askForMove(Scanner scanner){
+  private static void askForMove(Scanner scanner, Game game){
     System.out.println("player turn");
     int xPos = askForXPosition(scanner);
     int yPos = askForYPosition(scanner);
     int size = askForPieceSize(scanner);
-    System.out.println("xPos: " + xPos + ", yPos: " + yPos + ", size: " + size);
+    if (!game.addPiece(size, xPos, yPos)){
+      System.out.println("The Move is not empty, please try again");
+      askForMove(scanner, game);
+    }
   }
   private static int askForXPosition(Scanner scanner){
     int xPos;
