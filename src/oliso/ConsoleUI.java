@@ -24,6 +24,10 @@ public class ConsoleUI {
 
   }
 
+  /**
+   * print the board in the console
+   * @param board
+   */
   private static void printBoard(int[][] board) {
 
     System.out.println("BoardCheacker:");
@@ -44,6 +48,11 @@ public class ConsoleUI {
     }
   }
 
+  /**
+   * ask the player all the information about the movement
+   * @param scanner Scanner used in main
+   * @param game Game used in main
+   */
   private static void askForMove(Scanner scanner, Game game){
     System.out.println("player turn");
     int xPos = askForXPosition(scanner);
@@ -54,6 +63,12 @@ public class ConsoleUI {
       askForMove(scanner, game);
     }
   }
+
+  /**
+   * Ask the player what x position would like to the move
+   * @param scanner Scanner used in main
+   * @return the position that is between 0 and 2
+   */
   private static int askForXPosition(Scanner scanner){
     int xPos;
     System.out.println("Please enter the x position of the move:");
@@ -71,6 +86,11 @@ public class ConsoleUI {
 
     return xPos;
   }
+  /**
+   * Ask the player what y position would like to the move
+   * @param scanner Scanner used in main
+   * @return the position that is between 0 and 2
+   */
   private static int askForYPosition(Scanner scanner){
     int yPos;
     System.out.println("Please enter the y position of the move:");
@@ -88,6 +108,11 @@ public class ConsoleUI {
 
     return yPos;
   }
+  /**
+   * Ask the player what size of piece want
+   * @param scanner Scanner used in main
+   * @return the size that is between 0 and 2 [0 small, 1 medium, 2 big]
+   */
   private  static int askForPieceSize(Scanner scanner){
     System.out.println("s{Small}, m{Medium}, b{Big}");
     System.out.println("Please enter the size of the piece");
