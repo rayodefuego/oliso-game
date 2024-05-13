@@ -1,7 +1,7 @@
 package oliso;
 
 public class BoardChecker {
-  private boolean checkForWin(int[][] board) {
+  public static boolean checkForWin(int[][] board) {
     if(checkForSmall(board)) return true;
     if(checkForMedium(board)) return true;
     if(checkForBig(board)) return true;
