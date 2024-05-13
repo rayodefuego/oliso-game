@@ -76,7 +76,7 @@ public class Game {
   }
 
   /**
-   * @param player
+   * @param
    * @param size
    * @param x
    * @param y
@@ -91,7 +91,7 @@ public class Game {
     // When the board has only one number like 002
     else if (board[x][y] < 10) {
 
-      if (size == 1) {
+      if (size == 0) {
         return false;
       } else {
         board[x][y] += transforSizeToInt3(size, playerTurn);
@@ -100,10 +100,10 @@ public class Game {
     }
     // When the board has two numbers like 020 or 025
     else if (board[x][y] < 100) {
-      if (size == 1 && board[x][y] % 10 == 0) {
+      if (size == 0 && board[x][y] % 10 == 0) {
         board[x][y] += transforSizeToInt3(size, playerTurn);
         return true;
-      } else if (size == 3) {
+      } else if (size == 2) {
         board[x][y] += transforSizeToInt3(size, playerTurn);
         return true;
       } else {
@@ -112,10 +112,10 @@ public class Game {
     }
     // When the board has three numbers like 300, 320 or 325
     else {
-      if (size == 1 && board[x][y] % 10 == 0) {
+      if (size == 0 && board[x][y] % 10 == 0) {
         board[x][y] += transforSizeToInt3(size, playerTurn);
         return true;
-      } else if (size == 2 && (board[x][y] % 100 - board[x][y] % 10) == 0) {
+      } else if (size == 1 && (board[x][y] % 100 - board[x][y] % 10) == 0) {
         board[x][y] += transforSizeToInt3(size, playerTurn);
         return true;
       } else {
