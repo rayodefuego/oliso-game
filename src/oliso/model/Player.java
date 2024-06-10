@@ -1,4 +1,4 @@
-package oliso;
+package oliso.model;
 
 import javax.lang.model.element.Name;
 

@@ -1,6 +1,8 @@
-package oliso;
+package oliso.model;
 import java.util.*;
 import java.util.ArrayList;
+
+import oliso.model.Player;
 
 public class Game {
   private int[][] board;

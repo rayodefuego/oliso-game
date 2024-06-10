@@ -1,4 +1,4 @@
-package oliso;
+package oliso.model;
 
 public class BoardChecker {
   public static boolean checkForWin(int[][] board) {

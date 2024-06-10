@@ -1,5 +1,5 @@
-package oliso;
-
+package oliso.control;
+import oliso.model.*;
 import java.util.Scanner;
 
 public class ConsoleUI {
