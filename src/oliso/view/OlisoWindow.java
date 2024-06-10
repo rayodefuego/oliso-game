@@ -2,16 +2,10 @@ package oliso.view;
 import javax.swing.*;
 
 import oliso.model.Game;
-import oliso.model.BoardChecker;
-
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
-import java.net.NoRouteToHostException;
-
-import javax.imageio.ImageIO;
 import java.util.Arrays;
 
 
@@ -19,8 +13,8 @@ public class OlisoWindow {
     private JFrame frame;
     private JPanel board;
     private JMenuBar menuBar;
-    private JMenu menu;
-    private JMenuItem menuItem;
+    private JMenu menu, help;
+    private JMenuItem menuItem, helpItem;
     private String currentPlayer; 
     private Game game;
     private JLayeredPane layeredPane; // Declare layeredPane here
@@ -39,6 +33,8 @@ public class OlisoWindow {
         frame = new JFrame("Oliso");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
+        frame.setLayout(new GridBagLayout()); // Use GridBagLayout for centering
+        frame.getContentPane().setBackground(Color.decode("#ccc0b4")); // Set background color
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
     }
@@ -46,14 +42,54 @@ public class OlisoWindow {
     private void createMenu(){
         menuBar = new JMenuBar();
         menu = new JMenu("Game");
+        help = new JMenu("Help");
+        helpItem = new JMenuItem("How to play?");
+        helpItem.addActionListener(e -> {
+            HowToPlay();
+        });
         menuItem = new JMenuItem("New game");
         menuItem.addActionListener(e -> {
             System.out.println("New game");
         });
         menu.add(menuItem);
         menuBar.add(menu);
+        menuBar.add(help);
+        help.add(helpItem);
         frame.setJMenuBar(menuBar);
     }
+
+    private void HowToPlay(){
+        JFrame frame = new JFrame("How to play");
+        JButton rules = new JButton("Rules");
+        JButton twoPlayers = new JButton("Two players"); 
+        JButton threePlayers = new JButton("Three or more players");
+        JPanel helpPanel = new JPanel();
+        
+        
+        rules.addActionListener(e -> {
+            HelpWindows helpWindows = new HelpWindows();
+            helpWindows.RulesWindow();
+        });
+        twoPlayers.addActionListener(e -> {
+            HelpWindows helpWindows = new HelpWindows();
+            helpWindows.TwoPlayersWindow();
+        });
+        threePlayers.addActionListener(e -> {
+            HelpWindows helpWindows = new HelpWindows();
+            helpWindows.ThreePlayersWindow();
+        });
+
+        helpPanel.setLayout(new GridLayout(2, 1));
+        helpPanel.add(twoPlayers);
+        helpPanel.add(threePlayers);
+        helpPanel.add(rules);
+        frame.add(helpPanel, BorderLayout.CENTER);
+        frame.setSize(400, 200);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+
+    }
+    
    
     class ColorToggleActionListener implements ActionListener {
         private OlisoWindow olisoWindow;
@@ -106,9 +142,9 @@ public class OlisoWindow {
 
     public void createBoard(){
         layeredPane = new JLayeredPane(); // Initialize layeredPane here
-        layeredPane.setPreferredSize(new Dimension(800, 600));
-        layeredPane.setLocation(100, 100);
-        layeredPane.setSize(800, 600);
+        layeredPane.setPreferredSize(new Dimension(300, 300)); // Adjust size for better centering
+        layeredPane.setBackground(Color.decode("#ccc0b4")); // Set background color
+        layeredPane.setOpaque(true); // Make sure the background color is visible
         int buttonSize = 100;
         int offset = 10;
         
@@ -121,24 +157,31 @@ public class OlisoWindow {
                 button1.setBounds(x, y, buttonSize, buttonSize);
                 button1.setGridPosition(j, i);
                 button1.addActionListener(new ColorToggleActionListener(this));
+                button1.setBorderPainted(false);
+                button1.setBorder(BorderFactory.createEmptyBorder());
                 layeredPane.add(button1, JLayeredPane.DEFAULT_LAYER);
+
                 
                 CircularButton button2 = new CircularButton();
                 button2.setBounds(x + offset, y + offset, buttonSize - 2 * offset, buttonSize - 2 * offset);
                 button2.setGridPosition(j, i);
                 button2.addActionListener(new ColorToggleActionListener(this));
+                button2.setBorderPainted(false);
                 layeredPane.add(button2, JLayeredPane.PALETTE_LAYER);
                 
                 CircularButton button3 = new CircularButton();
                 button3.setBounds(x + 2 * offset, y + 2 * offset, buttonSize - 4 * offset, buttonSize - 4 * offset);
                 button3.setGridPosition(j, i);
                 button3.addActionListener(new ColorToggleActionListener(this));
+                button3.setBorderPainted(false);
                 layeredPane.add(button3, JLayeredPane.MODAL_LAYER);
             }
         }        
-        frame.add(layeredPane);
-        frame.pack();
-        frame.setVisible(true);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(10, 10, 10, 10); // Add padding
+        frame.add(layeredPane, gbc);
     }
     
 
@@ -147,7 +190,8 @@ public class OlisoWindow {
         playerLabel.setSize(200, 20);
         playerLabel.setLocation(400, 20); // Set x and y coordinates as needed
         playerLabel.setForeground(Color.BLACK); // Optional: Set text color for better visibility
-        layeredPane.add(playerLabel, JLayeredPane.POPUP_LAYER); // Add to a higher layer
+        layeredPane.add(playerLabel, JLayeredPane.POPUP_LAYER);
+         // Add to a higher layer
     }
 
 
@@ -172,7 +216,11 @@ public class OlisoWindow {
         option3.setAlignmentX(Component.CENTER_ALIGNMENT);
         powerupsPanel.add(option3);
 
-        frame.add(powerupsPanel, BorderLayout.EAST);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(10, 10, 10, 10); // Add padding
+        frame.add(powerupsPanel, gbc);
     }
 
     class CircularButton extends JButton {
@@ -237,7 +285,21 @@ public class OlisoWindow {
         @Override
         protected void paintBorder(Graphics g) {
             g.setColor(getForeground());
-            g.drawOval(0, 0, getSize().width - 1, getSize().height - 1);
+            int width = getWidth();
+            int height = getHeight();
+
+            // Draw border for big piece
+             g.drawOval(0, 0, width, height);
+
+            // Draw border for medium piece
+            int mediumSize = (int) (width * 0.67);
+            int mediumOffset = (width - mediumSize) / 2;
+            g.drawOval(mediumOffset, mediumOffset, mediumSize, mediumSize);
+
+            // Draw border for small piece
+            int smallSize = (int) (width * 0.33);
+            int smallOffset = (width - smallSize) / 2;
+            g.drawOval(smallOffset, smallOffset, smallSize, smallSize);
         }
 
         @Override

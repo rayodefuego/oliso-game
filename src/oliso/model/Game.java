@@ -99,48 +99,47 @@ public class Game {
   public boolean addPiece(int size, int x, int y) {
     // When the board hasn't numbers
     if (board[x][y] == 0) {
-      board[x][y] += transformSizeToInt3(size, playerTurn);
-      removePieceToPlayer(size);
-      return true;
+        board[x][y] += transformSizeToInt3(size, playerTurn);
+        removePieceToPlayer(size);
+        return true;
     }
     // When the board has only one number like 002
     else if (board[x][y] < 10) {
-
-      if (size == 0) {
-        return false;
-      } else {
-        board[x][y] += transformSizeToInt3(size, playerTurn);
-        removePieceToPlayer(size);
-        return true;
-      }
+        if (size == 0) {
+            return false;
+        } else {
+            board[x][y] += transformSizeToInt3(size, playerTurn);
+            removePieceToPlayer(size);
+            return true;
+        }
     }
     // When the board has two numbers like 020 or 025
     else if (board[x][y] < 100) {
-      if (size == 0 && board[x][y] % 10 == 0) {
-        board[x][y] += transformSizeToInt3(size, playerTurn);
-        removePieceToPlayer(size);
-        return true;
-      } else if (size == 2) {
-        board[x][y] += transformSizeToInt3(size, playerTurn);
-        removePieceToPlayer(size);
-        return true;
-      } else {
-        return false;
-      }
+        if (size == 0 && board[x][y] % 10 == 0) {
+            board[x][y] += transformSizeToInt3(size, playerTurn);
+            removePieceToPlayer(size);
+            return true;
+        } else if (size == 2) {
+            board[x][y] += transformSizeToInt3(size, playerTurn);
+            removePieceToPlayer(size);
+            return true;
+        } else {
+            return false;
+        }
     }
     // When the board has three numbers like 300, 320 or 325
     else {
-      if (size == 0 && board[x][y] % 10 == 0) {
-        board[x][y] += transformSizeToInt3(size, playerTurn);
-        removePieceToPlayer(size);
-        return true;
-      } else if (size == 1 && (board[x][y] % 100 - board[x][y] % 10) == 0) {
-        board[x][y] += transformSizeToInt3(size, playerTurn);
-        removePieceToPlayer(size);
-        return true;
-      } else {
-        return false;
-      }
+        if (size == 0 && board[x][y] % 10 == 0) {
+            board[x][y] += transformSizeToInt3(size, playerTurn);
+            removePieceToPlayer(size);
+            return true;
+        } else if (size == 1 && (board[x][y] % 100 - board[x][y] % 10) == 0) {
+            board[x][y] += transformSizeToInt3(size, playerTurn);
+            removePieceToPlayer(size);
+            return true;
+        } else {
+            return false;
+        }
     }
   }
 
@@ -148,7 +147,7 @@ public class Game {
    * remove a piece to the current player
    * @param size [0, 2] what type of piece need to remove
    */
-  private void removePieceToPlayer(int size){
+  public  void removePieceToPlayer(int size){
     if(size == 0){
       currentPlayer.removeSmallPiece();
     }
@@ -174,3 +173,4 @@ public class Game {
     }
   }
 }
+
