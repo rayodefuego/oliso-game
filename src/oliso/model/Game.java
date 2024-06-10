@@ -153,13 +153,14 @@ public class Game {
   public boolean removePiece(int size, int x, int y){
       switch (size){
           case 0:
-             if((board[x][y] % 10) == 0){
+              int num1 = board[x][y] % 10;
+              if((num1) == 0){
                  return false;
-             }
-             else{
-                 board[x][y] -= board[x][y] % 10;
+              }
+              else{
+                 board[x][y] -= num1;
                  return true;
-             }
+              }
           case 1:
               int num2 = (board[x][y] % 100) - (board[x][y] % 10);
               if(num2 == 0){
@@ -183,6 +184,50 @@ public class Game {
       }
   }
 
+    /**
+     * change a piece with other player value
+     * @param player has to be 2, 3, 5 and 7
+     * @param size number between 0 and 2
+     * @param x number between 0 and 2
+     * @param y number between 0 and 2
+     * @return false if the operation fail
+     */
+  public boolean changePiece(int player ,int size, int x, int y){
+      switch (size){
+          case 0:
+              int num1 = board[x][y] % 10;
+              if((num1) == 0){
+                  return false;
+              }
+              else{
+                  board[x][y] -= num1;
+                  board[x][y] += player;
+                  return true;
+              }
+          case 1:
+              int num2 = (board[x][y] % 100) - (board[x][y] % 10);
+              if(num2 == 0){
+                  return false;
+              }
+              else{
+                  board[x][y] -= num2;
+                  board[x][y] += player * 10;
+                  return true;
+              }
+          case 2:
+              int num3 = board[x][y] - (board[x][y] % 100);
+              if(num3 == 0){
+                  return false;
+              }
+              else{
+                  board[x][y] -= num3;
+                  board[x][y] += player * 100;
+                  return true;
+              }
+          default:
+              return false;
+      }
+  }
   /**
    * remove a piece to the current player
    * @param size [0, 2] what type of piece need to remove
