@@ -1,6 +1,5 @@
 package oliso.model;
 
-import javax.lang.model.element.Name;
 
 public class Player{
   private int winsCount;    //Declare total wins variable winsCount as integer

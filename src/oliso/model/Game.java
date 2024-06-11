@@ -1,8 +1,5 @@
 package oliso.model;
 import java.util.*;
-import java.util.ArrayList;
-
-import oliso.model.Player;
 
 public class Game {
   private int[][] board;
@@ -13,6 +10,8 @@ public class Game {
   private int playerCount;
 
   private Player currentPlayer;
+
+  private boolean[][] playerPowerupUsed; // Tracks if a powerup has been used by each player in the current turn
 
   /**
    * Create an instance of game
@@ -34,6 +33,7 @@ public class Game {
     this.playersNumbers[3] = 7;
     this.playerCount = players;
     this.currentPlayer = this.players[0];
+    this.playerPowerupUsed = new boolean[players][2]; // Each player has a usage flag for each powerup
   }
 
   /**
@@ -43,6 +43,7 @@ public class Game {
     turn = (turn +1) % playerCount;
     playerTurn = playersNumbers[turn];
     currentPlayer = players[turn];
+    resetPlayerPowerupUsage();
   }
 
   public int[][] getBoard() {
@@ -151,37 +152,41 @@ public class Game {
     * @return false if the operation fail
     */
   public boolean removePiece(int size, int x, int y){
-      switch (size){
-          case 0:
-              int num1 = board[x][y] % 10;
-              if((num1) == 0){
+    if (x < 0 || x > 2 || y < 0 || y > 2) {
+        return false; // Invalid coordinates
+    }
+
+    switch (size){
+        case 0:
+            int num1 = board[x][y] % 10;
+            if((num1) == 0){
                  return false;
-              }
-              else{
+            }
+            else{
                  board[x][y] -= num1;
                  return true;
-              }
-          case 1:
-              int num2 = (board[x][y] % 100) - (board[x][y] % 10);
-              if(num2 == 0){
-                  return false;
-              }
-              else{
-                  board[x][y] -= num2;
-                  return true;
-              }
-          case 2:
-              int num3 = board[x][y] - (board[x][y] % 100);
-              if(num3 == 0){
-                  return false;
-              }
-              else{
-                  board[x][y] -= num3;
-                  return true;
-              }
-          default:
-              return false;
-      }
+            }
+        case 1:
+            int num2 = (board[x][y] % 100) - (board[x][y] % 10);
+            if(num2 == 0){
+                return false;
+            }
+            else{
+                board[x][y] -= num2;
+                return true;
+            }
+        case 2:
+            int num3 = (board[x][y] % 1000) - (board[x][y] % 100);
+            if(num3 == 0){
+                return false;
+            }
+            else{
+                board[x][y] -= num3;
+                return true;
+            }
+        default:
+            return false;
+    }
   }
 
     /**
@@ -192,41 +197,27 @@ public class Game {
      * @param y number between 0 and 2
      * @return false if the operation fail
      */
-  public boolean changePiece(int player ,int size, int x, int y){
-      switch (size){
-          case 0:
-              int num1 = board[x][y] % 10;
-              if((num1) == 0){
-                  return false;
-              }
-              else{
-                  board[x][y] -= num1;
-                  board[x][y] += player;
-                  return true;
-              }
-          case 1:
-              int num2 = (board[x][y] % 100) - (board[x][y] % 10);
-              if(num2 == 0){
-                  return false;
-              }
-              else{
-                  board[x][y] -= num2;
-                  board[x][y] += player * 10;
-                  return true;
-              }
-          case 2:
-              int num3 = board[x][y] - (board[x][y] % 100);
-              if(num3 == 0){
-                  return false;
-              }
-              else{
-                  board[x][y] -= num3;
-                  board[x][y] += player * 100;
-                  return true;
-              }
-          default:
-              return false;
-      }
+  public boolean changePiece(int player) {
+    Random rand = new Random();
+    int x, y, size;
+    do {
+        x = rand.nextInt(3);
+        y = rand.nextInt(3);
+        size = rand.nextInt(3);
+    } while (board[x][y] == 0); // Ensure the selected piece is not empty
+
+    switch (size) {
+        case 0:
+            board[x][y] = (board[x][y] / 10) * 10 + player;
+            break;
+        case 1:
+            board[x][y] = (board[x][y] / 100) * 100 + (player * 10) + (board[x][y] % 10);
+            break;
+        case 2:
+            board[x][y] = player * 100 + (board[x][y] % 100);
+            break;
+    }
+    return true;
   }
   /**
    * remove a piece to the current player
@@ -257,5 +248,18 @@ public class Game {
       return player * 100;
     }
   }
-}
 
+  public boolean canUsePowerup(int powerupIndex) {
+    return !playerPowerupUsed[turn][powerupIndex];
+  }
+
+  public void usePowerup(int powerupIndex) {
+    playerPowerupUsed[turn][powerupIndex] = true;
+  }
+
+  public void resetPlayerPowerupUsage() {
+    for (int i = 0; i < playerPowerupUsed.length; i++) {
+        Arrays.fill(playerPowerupUsed[i], false);
+    }
+  }
+}

@@ -1,23 +1,20 @@
 package oliso.view;
 
-import java.security.PublicKey;
 
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import java.awt.Font;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Component;
-import java.awt.Image;
+import javax.swing.*;
+import java.awt.*;
+import oliso.resources.Fonts;
 
 public class HelpWindows {
-     public void TwoPlayersWindow() {
+    private Font robotoFont;
+
+    public HelpWindows() {
+        Fonts fonts = new Fonts();
+        fonts.loadRobotoFont();
+        robotoFont = fonts.getRobotoFont();
+    }
+
+    public void TwoPlayersWindow() {
     JFrame frame = new JFrame("Two players");
     frame.setSize(500, 500);
     frame.setLocationRelativeTo(null);
@@ -25,7 +22,7 @@ public class HelpWindows {
     frame.setVisible(true);
 
     JLabel label = new JLabel("FOR 2 PLAYERS");
-    label.setFont(new Font("Arial", Font.BOLD, 35));
+    label.setFont(robotoFont.deriveFont(Font.BOLD, 35));
     label.setForeground(Color.BLACK);
     label.setHorizontalAlignment(JLabel.CENTER); // Center the label
 
@@ -34,7 +31,7 @@ public class HelpWindows {
     info.setWrapStyleWord(true);
     info.setEditable(false);
     info.setOpaque(false);
-    info.setFont(new Font("Arial", Font.ITALIC, 20));
+    info.setFont(robotoFont.deriveFont(Font.ITALIC, 20));
     info.setAlignmentX(Component.LEFT_ALIGNMENT);
 
     // Create a panel to hold the components
@@ -60,7 +57,7 @@ public class HelpWindows {
     frame.setVisible(true);
 
     JLabel label = new JLabel("For 3 or more players");
-    label.setFont(new Font("Arial", Font.BOLD, 35));
+    label.setFont(robotoFont.deriveFont(Font.BOLD, 35));
     label.setForeground(Color.BLACK);
     label.setHorizontalAlignment(JLabel.CENTER); // Center the label
 
@@ -69,7 +66,7 @@ public class HelpWindows {
     info.setWrapStyleWord(true);
     info.setEditable(false);
     info.setOpaque(false);
-    info.setFont(new Font("Arial", Font.ITALIC, 20));
+    info.setFont(robotoFont.deriveFont(Font.ITALIC, 20));
     info.setAlignmentX(Component.LEFT_ALIGNMENT);
 
     // Create a panel to hold the components
@@ -95,9 +92,9 @@ public class HelpWindows {
         frame.setVisible(true);
 
         JLabel label = new JLabel("How to play!");
-        label.setFont(new Font("Arial", Font.BOLD, 35));
+        label.setFont(robotoFont.deriveFont(Font.BOLD, 35));
         label.setForeground(Color.BLACK);
-        label.setHorizontalAlignment(JLabel.CENTER); // Center the label
+        label.setHorizontalAlignment(JLabel.LEFT); // Center the label
 
         // Load the image
         ImageIcon imageIcon = new ImageIcon("src/oliso/resources/rules.png");
@@ -114,7 +111,7 @@ public class HelpWindows {
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Add padding
         panel.setBackground(Color.LIGHT_GRAY); // Set background color
 
-        panel.add(label);
+        panel.add(label);   
         panel.add(Box.createRigidArea(new Dimension(0, 20))); // Add some space between components
         panel.add(imageLabel);
         panel.add(Box.createRigidArea(new Dimension(0, 20))); // Add some space between components
@@ -129,4 +126,44 @@ public class HelpWindows {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Close only this window
         frame.setVisible(true);
     }
+    public void HowToPlayWindow(){
+        JFrame frame = new JFrame("How to play!");
+        frame.setSize(500, 500);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Close only this window
+        frame.setVisible(true);
+
+        Font robotoFont = new Font("Roboto", Font.PLAIN, 20); // Define the robotoFont
+
+        JButton rules = new JButton("Rules");
+        rules.setFont(robotoFont);
+        JButton twoPlayers = new JButton("Two players");
+        twoPlayers.setFont(robotoFont);
+        JButton threePlayers = new JButton("Three or more players");
+        threePlayers.setFont(robotoFont);
+        JPanel helpPanel = new JPanel();
+
+        rules.addActionListener(e -> {
+            HelpWindows helpWindows = new HelpWindows();
+            helpWindows.RulesWindow();
+        });
+        twoPlayers.addActionListener(e -> {
+            HelpWindows helpWindows = new HelpWindows();
+            helpWindows.TwoPlayersWindow();
+        });
+        threePlayers.addActionListener(e -> {
+            HelpWindows helpWindows = new HelpWindows();
+            helpWindows.ThreePlayersWindow();
+        });
+
+        helpPanel.setLayout(new GridLayout(2, 1));
+        helpPanel.add(twoPlayers);
+        helpPanel.add(threePlayers);
+        helpPanel.add(rules);
+        frame.add(helpPanel, BorderLayout.CENTER);
+        frame.setSize(400, 200);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+    
 }
