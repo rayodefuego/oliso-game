@@ -195,7 +195,12 @@ public class OlisoWindow {
          // Add to a higher layer
     }
 
-
+    /**
+     * Creates and sets up the power-ups panel.
+     * The panel contains buttons for the available power-ups: "Remove Piece" and "Change Piece".
+     * Each button is styled with the Roboto font and centered within the panel.
+     * The panel is added to the main frame using GridBagLayout constraints.
+     */
     private void createPowerupsPanel() {
         JPanel powerupsPanel = new JPanel();
         powerupsPanel.setLayout(new BoxLayout(powerupsPanel, BoxLayout.Y_AXIS));
@@ -329,7 +334,10 @@ public class OlisoWindow {
             }
         }
     }
-
+/* This class is responsible of initializing a new game via the new game button.
+ * It starts a new game, removes the old board, and creates a new board.
+ * After that, refreshes the frame and updates the power-ups buttons.
+ */
     public void newGame(){
             game = new Game(4);
             frame.remove(layeredPane); // Remove the old layeredPane
@@ -340,7 +348,18 @@ public class OlisoWindow {
             frame.repaint();
             updatePowerupButtons(); // Update powerup buttons
     }
-
+/* 
+ * This class is responsible for using the remove piece power-up.
+ * It is used to remove a piece from the board.
+ * 
+ * @param x the x-coordinate on the board where the piece is to be removed
+ * @param y the y-coordinate on the board where the piece is to be removed
+ * @param size the size of the piece to be removed
+ * @param powerupIndex 0 means RemovePiece powerup
+ *  It takes the coordinates and the size of the piece to be removed.
+ * It can only be used once per turn.
+ * 
+ */
     private void useRemovePiecePowerup() {
         if (game.canUsePowerup(0)) {
             try {
@@ -353,12 +372,12 @@ public class OlisoWindow {
                     return;
                 }
 
-                if (game.removePiece(size, x, y)) {
-                    game.usePowerup(0);
+                if (game.removePiece(size, x, y)) { //Checks for pieces in that position
+                    game.usePowerup(0); //Uses powerup 0 
                     updateBoard();
                     updatePowerupButtons();
                     game.nextTurn();
-                    setCurrentPlayer(game.getCurrentPlayer().getName());
+                    setCurrentPlayer(game.getCurrentPlayer().getName()); //Updates the board and skips to the next turn
                 } else {
                     JOptionPane.showMessageDialog(frame, "Invalid move. Try again.");
                 }
@@ -369,15 +388,22 @@ public class OlisoWindow {
             JOptionPane.showMessageDialog(frame, "Powerup already used.");
         }
     }
+/* 
+ * This class is responsible for using the change piece power-up.
+ * It checks if the Change piece powerUp (index 1) has been used
+ * @param powerupIndex takes 1 or 0 depending on the powerup being used
+ * @param powerupIndex returns true or false depending on powerup usage
+ * 
+ */
 
     private void useChangePiecePowerup() {
-        if (game.canUsePowerup(1)) {
-            if (game.changePiece(game.getPlayerTurn())) {
+        if (game.canUsePowerup(1)) { //Check for available powerups
+            if (game.changePiece(game.getPlayerTurn())) { //Attempt to change the piece with the next player
                 game.usePowerup(1);
                 updateBoard();
                 updatePowerupButtons();
                 game.nextTurn();
-                setCurrentPlayer(game.getCurrentPlayer().getName());
+                setCurrentPlayer(game.getCurrentPlayer().getName()); //updates board and changes the turn to the next player
             } else {
                 JOptionPane.showMessageDialog(frame, "Invalid move. Try again.");
             }
@@ -385,7 +411,10 @@ public class OlisoWindow {
             JOptionPane.showMessageDialog(frame, "Powerup already used.");
         }
     }
-
+ /* 
+  * This class is used to update the power up buttons after every use
+  * 
+  */
     private void updatePowerupButtons() {
         powerup1.setEnabled(game.canUsePowerup(0));
         powerup2.setEnabled(game.canUsePowerup(1));

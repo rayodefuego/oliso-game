@@ -249,14 +249,29 @@ public class Game {
     }
   }
 
+  /**
+   * Checks if the current player can use a specified powerup.
+   *
+   * @param powerupIndex the index of the powerup to check (e.g., 0 for the first powerup, 1 for the second powerup)
+   * @return true if the current player has not used the specified powerup this turn, false otherwise
+   */
   public boolean canUsePowerup(int powerupIndex) {
     return !playerPowerupUsed[turn][powerupIndex];
   }
 
+  /**
+   * Marks a specified powerup as used for the current player in the current turn.
+   *
+   * @param powerupIndex the index of the powerup to mark as used (e.g., 0 for the first powerup, 1 for the second powerup)
+   */
   public void usePowerup(int powerupIndex) {
     playerPowerupUsed[turn][powerupIndex] = true;
   }
 
+  /**
+   * Resets the powerup usage flags for all players, indicating that no powerups have been used.
+   * This method is typically called at the start of a new turn.
+   */
   public void resetPlayerPowerupUsage() {
     for (int i = 0; i < playerPowerupUsed.length; i++) {
         Arrays.fill(playerPowerupUsed[i], false);
